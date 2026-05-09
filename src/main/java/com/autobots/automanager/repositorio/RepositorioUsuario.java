@@ -1,0 +1,37 @@
+package com.autobots.automanager.repositorio;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+import com.autobots.automanager.entidade.Usuario;
+
+@Repository
+public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
+
+    Optional<Usuario> findByDocumentosNumero(String numeroDocumento);
+    Optional<Usuario> findByEmailsEndereco(String email);
+
+    @Query("""
+        select u from Usuario u
+        join u.credenciais c
+        where type(c) = CredencialCodigoBarra
+        and c.codigo = :codigo
+    """)
+    Optional<Usuario> findByCredencialCodigoBarra(@Param("codigo") Long codigo);
+
+    boolean existsByDocumentosNumero(String numeroDocumento);
+    boolean existsByEmailsEndereco(String email);
+
+    @Query("""
+        select case when count(u) > 0 then true else false end
+        from Usuario u
+        join u.credenciais c
+        where type(c) = CredencialCodigoBarra
+        and c.codigo = :codigo
+    """)
+    boolean existsByCredencialCodigoBarra(@Param("codigo") Long codigo);
+}

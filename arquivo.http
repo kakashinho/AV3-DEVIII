@@ -1,0 +1,314 @@
+### ============================================================
+### ARQUIVO DE REQUISIÇÕES - API do Sistema AV3-DEVIII
+### Base URL (ajuste se necessário)
+@baseUrl = http://localhost:8080
+
+### ============================================================
+### 1. EMPRESA
+### ============================================================
+
+### Listar todas as empresas
+GET {{baseUrl}}/api/empresas
+
+### Buscar empresa por ID (substitua {id} pelo valor real)
+GET {{baseUrl}}/api/empresas/1
+
+### Criar empresa
+POST {{baseUrl}}/api/empresas
+Content-Type: application/json
+
+{
+  "razaoSocial": "Auto Peças e Serviços Ltda.",
+  "nomeFantasia": "AutoMec",
+  "endereco": {
+    "estado": "São Paulo",
+    "cidade": "São Paulo",
+    "bairro": "Centro",
+    "rua": "Rua XV de Novembro",
+    "numero": "100",
+    "codigoPostal": "01010-000",
+    "informacoesAdicionais": "Sala 202"
+  },
+  "telefones": [
+    { "ddd": "11", "numero": "99999-0001" },
+    { "ddd": "11", "numero": "3333-2222" }
+  ],
+  "usuariosIds": [],
+  "mercadoriasIds": [],
+  "servicosIds": []
+}
+
+### Atualizar empresa
+PUT {{baseUrl}}/api/empresas/2
+Content-Type: application/json
+
+{
+  "razaoSocial": "Auto Peças e Serviços Ltda. (Atualizado)",
+  "nomeFantasia": "AutoMec Plus",
+  "endereco": {
+    "estado": "São Paulo",
+    "cidade": "São Paulo",
+    "bairro": "Centro",
+    "rua": "Rua XV de Novembro",
+    "numero": "200",
+    "codigoPostal": "01010-000",
+    "informacoesAdicionais": "Sala 302"
+  },
+  "telefones": [
+    { "ddd": "11", "numero": "99999-0001" }
+  ],
+  "usuariosIds": [],
+  "mercadoriasIds": [],
+  "servicosIds": []
+}
+
+### Remover empresa
+DELETE {{baseUrl}}/api/empresas/2
+
+### Listar usuários de uma empresa
+GET {{baseUrl}}/api/empresas/1/usuarios
+
+### Associar usuário a empresa
+POST {{baseUrl}}/api/empresas/1/usuarios/2
+
+### Desassociar usuário de empresa
+DELETE {{baseUrl}}/api/empresas/1/usuarios/2
+
+### Listar veículos de uma empresa
+GET {{baseUrl}}/api/empresas/1/veiculos
+
+### Listar vendas de uma empresa
+GET {{baseUrl}}/api/empresas/1/vendas
+
+
+### ============================================================
+### 2. MERCADORIA
+### ============================================================
+
+### Listar todas as mercadorias
+GET {{baseUrl}}/api/mercadorias
+
+### Buscar mercadoria por ID
+GET {{baseUrl}}/api/mercadorias/1
+
+### Criar mercadoria
+POST {{baseUrl}}/api/mercadorias
+Content-Type: application/json
+
+{
+  "nome": "Óleo Lubrificante",
+  "descricao": "Óleo sintético 5W30",
+  "valor": 25.90,
+  "validade": "2026-12-31",
+  "fabricao": "2024-01-10",
+  "quantidade": 50
+}
+
+### Atualizar mercadoria
+PUT {{baseUrl}}/api/mercadorias/1
+Content-Type: application/json
+
+{
+  "nome": "Óleo Lubrificante Atualizado",
+  "descricao": "Óleo sintético 5W30 Premium",
+  "valor": 29.90,
+  "validade": "2027-06-30",
+  "fabricao": "2024-01-15",
+  "quantidade": 45
+}
+
+### Remover mercadoria
+DELETE {{baseUrl}}/api/mercadorias/1
+
+
+### ============================================================
+### 3. SERVIÇO
+### ============================================================
+
+### Listar todos os serviços
+GET {{baseUrl}}/api/servicos
+
+### Buscar serviço por ID
+GET {{baseUrl}}/api/servicos/1
+
+### Criar serviço (status deve ser um valor do enum StatusServico)
+POST {{baseUrl}}/api/servicos
+Content-Type: application/json
+
+{
+  "nome": "Troca de óleo",
+  "descricao": "Troca de óleo e filtro",
+  "valor": 80.00
+}
+
+### Atualizar serviço
+PUT {{baseUrl}}/api/servicos/3
+Content-Type: application/json
+
+{
+  "nome": "Troca de óleo Premium",
+  "descricao": "Troca de óleo sintético e filtro de ar",
+  "valor": 120.00
+}
+
+### Remover serviço
+DELETE {{baseUrl}}/api/servicos/1
+
+
+### ============================================================
+### 4. USUÁRIO (Controller não analisado completamente)
+### ============================================================
+
+### Listar todos os usuários
+GET {{baseUrl}}/api/usuarios
+
+### Buscar usuário por ID
+GET {{baseUrl}}/api/usuarios/1
+
+### Criar usuário (exemplo baseado no DTO UsuarioRequest - verifique a estrutura exata)
+POST {{baseUrl}}/api/usuarios
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "nomeSocial": "João",
+  "endereco": {
+    "estado": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Centro",
+    "rua": "Rua A",
+    "numero": "123",
+    "codigoPostal": "01000-000",
+    "informacoesAdicionais": ""
+  },
+  "telefones": [
+    { "ddd": "11", "numero": "98888-7777" }
+  ],
+  "emails": [
+    { "endereco": "joao@exemplo.com" }
+  ],
+  "documentos": [
+    { "tipo": "CPF", "dataEmissao": "2020-01-15", "numero": "123.456.789-00" }
+  ],
+  "credenciais": [],
+  "perfis": ["CLIENTE"] 
+}
+
+### Atualizar usuário (verificar DTO)
+PUT {{baseUrl}}/api/usuarios/1
+Content-Type: application/json
+
+{
+  "nome": "João Silva Atualizado",
+  "nomeSocial": "Jão",
+  "endereco": {
+    "estado": "SP",
+    "cidade": "São Paulo",
+    "bairro": "Centro",
+    "rua": "Rua A",
+    "numero": "123",
+    "codigoPostal": "01000-000",
+    "informacoesAdicionais": ""
+  },
+  "telefones": [
+    { "ddd": "11", "numero": "98888-7777" }
+  ],
+  "credenciais": [],
+  "perfis": ["CLIENTE"] 
+}
+
+### Remover usuário
+DELETE {{baseUrl}}/api/usuarios/1
+
+
+### ============================================================
+### 5. VEÍCULO (Controller não analisado completamente)
+### ============================================================
+
+### Listar todos os veículos
+GET {{baseUrl}}/api/veiculos
+
+### Buscar veículo por ID
+GET {{baseUrl}}/api/veiculos/1
+
+### Criar veículo (exemplo baseado no DTO VeiculoRequest - verifique a estrutura exata)
+POST {{baseUrl}}/api/veiculos
+Content-Type: application/json
+
+{
+  "tipo": "SEDA",
+  "modelo": "Civic EXL",
+  "placa": "ABC-1234",
+  "proprietarioId": 3
+}
+
+### Atualizar veículo
+PUT {{baseUrl}}/api/veiculos/1
+Content-Type: application/json
+
+{
+  "tipo": "SEDA",
+  "modelo": "Civic EXL Atualizado",
+  "placa": "ABC-1234",
+  "proprietarioId": 3
+}
+
+### Remover veículo
+DELETE {{baseUrl}}/api/veiculos/1
+
+
+### ============================================================
+### 6. VENDA (Controller não analisado completamente)
+### ============================================================
+
+### Listar todas as vendas
+GET {{baseUrl}}/api/vendas
+
+### Buscar venda por ID
+GET {{baseUrl}}/api/vendas/1
+
+### Criar venda (exemplo baseado no DTO VendaRequest - verifique a estrutura exata)
+POST {{baseUrl}}/api/vendas
+Content-Type: application/json
+
+{
+  "identificacao": "VEND-001",
+  "clienteId": 4,
+  "funcionarioId": 2,
+  "veiculoId": 1,
+  "mercadoriasIds": [1, 2],
+  "servicosIds": [1]
+}
+
+### Atualizar venda
+PUT {{baseUrl}}/api/vendas/1
+Content-Type: application/json
+
+{
+  "identificacao": "VEND-001 Atualizada",
+  "clienteId": 1,
+  "funcionarioId": 2,
+  "veiculoId": 1,
+  "mercadoriasIds": [1],
+  "servicosIds": [1]
+}
+
+### Remover venda
+DELETE {{baseUrl}}/api/vendas/1
+
+### Adicionar Credencial (Usuário/Senha)
+POST {{baseUrl}}/api/usuarios/1/credenciais
+Content-Type: application/json
+
+{
+  "nomeUsuario": "joao.siqueira",
+  "senha": "senhaSegura123"
+}
+
+### Adicionar Credencial (crachá com um código de barras ou QR Code)
+POST {{baseUrl}}/api/usuarios/1/credenciais
+Content-Type: application/json
+
+{
+  "codigo": "789123456789"
+}
